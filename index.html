@@ -558,10 +558,21 @@
   function closeModal() { document.getElementById('overlay').classList.remove('open'); }
   function closeOnOverlay(e) { if (e.target === document.getElementById('overlay')) closeModal(); }
 
+  const squareLinks = {
+    basic:    'https://square.link/u/AZiX4jYT',
+    advanced: 'https://square.link/u/AZiX4jYT',
+    premium:  'https://square.link/u/AZiX4jYT',
+  };
+
   function checkout() {
-    if (Object.keys(cart).length === 0) return;
-    // TODO: Replace this with your Stripe / payment link
-    alert('Payment integration coming soon! Connect Stripe or another payment provider here.');
+    const items = Object.keys(cart);
+    if (items.length === 0) return;
+
+    if (items.length === 1) {
+      window.location.href = squareLinks[items[0]];
+    } else {
+      items.forEach(id => window.open(squareLinks[id], '_blank'));
+    }
   }
 </script>
 
