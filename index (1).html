@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Craft — Barista Training</title>
+<meta name="description" content="Professional barista training courses. Basic, Advanced and Premium programs for all skill levels.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5EFE4;
+    --espresso: #1C1007;
+    --roast: #3B1F0A;
+    --caramel: #C07A2B;
+    --latte: #D4A96A;
+    --foam: #FAF6EE;
+    --muted: #8C7B6A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--espresso);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--espresso);
+    color: var(--cream);
+    padding: 80px 40px 90px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 60% 40%, rgba(192,122,43,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--latte);
+    border: 1px solid rgba(212,169,106,0.4);
+    padding: 6px 18px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1.08;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .hero h1 em { font-style: italic; color: var(--latte); }
+  .hero p {
+    font-size: 1.05rem;
+    color: rgba(245,239,228,0.7);
+    max-width: 480px;
+    margin: 0 auto 36px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .hero-btn {
+    background: var(--caramel);
+    color: #fff;
+    border: none;
+    padding: 14px 36px;
+    border-radius: 30px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .hero-btn:hover { background: #a5661e; transform: translateY(-1px); }
+
+  /* ── SECTION HEADER ── */
+  .section-label {
+    text-align: center;
+    padding: 64px 20px 10px;
+  }
+  .section-label span {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--caramel);
+    font-weight: 500;
+  }
+  .section-label h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    margin-top: 10px;
+    color: var(--espresso);
+  }
+
+  /* ── COURSES GRID ── */
+  .courses {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 1060px;
+    margin: 40px auto 70px;
+    padding: 0 28px;
+  }
+
+  .card {
+    background: var(--foam);
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(28,16,7,0.09);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+  }
+  .card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(28,16,7,0.13); }
+  .card.featured { border: 2px solid var(--caramel); }
+  .card.featured::before {
+    content: 'Most Popular';
+    position: absolute;
+    top: 18px; right: 18px;
+    background: var(--caramel);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  .card-icon {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+  }
+  .card:nth-child(1) .card-icon { background: linear-gradient(135deg, #e8ddd0 0%, #d4c4ae 100%); }
+  .card:nth-child(2) .card-icon { background: linear-gradient(135deg, #3B1F0A 0%, #5a3010 100%); }
+  .card:nth-child(3) .card-icon { background: linear-gradient(135deg, #1C1007 0%, #2e1a08 100%); font-size: 2.4rem; }
+
+  .card-body { padding: 26px 26px 22px; flex: 1; }
+  .card-level {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--caramel);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--espresso);
+    margin-bottom: 12px;
+  }
+  .card-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+    display: none;
+  }
+  .card-desc.open { display: block; }
+  .toggle-desc {
+    font-size: 0.82rem;
+    color: var(--caramel);
+    font-weight: 500;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 0 0;
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    transition: opacity 0.15s;
+  }
+  .toggle-desc:hover { opacity: 0.7; }
+
+  .includes { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(28,16,7,0.07); }
+  .includes li {
+    list-style: none;
+    font-size: 0.82rem;
+    color: var(--muted);
+    padding: 3px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 300;
+  }
+  .includes li::before { content: '✓'; color: var(--caramel); font-weight: 700; font-size: 0.75rem; }
+
+  .card-footer {
+    padding: 20px 26px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(28,16,7,0.07);
+  }
+  .price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--espresso);
+  }
+  .price span { font-size: 1rem; color: var(--muted); font-family: 'DM Sans'; font-weight: 300; }
+
+  .add-btn {
+    background: var(--espresso);
+    color: var(--cream);
+    border: none;
+    padding: 11px 22px;
+    border-radius: 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.3px;
+  }
+  .add-btn:hover { background: var(--roast); transform: scale(1.03); }
+  .add-btn.added { background: var(--caramel); }
+
+  /* ── FLOATING CART BAR ── */
+  .cart-bar {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    background: var(--espresso);
+    color: var(--cream);
+    border-radius: 50px;
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    box-shadow: 0 16px 50px rgba(28,16,7,0.35);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    z-index: 999;
+    min-width: 340px;
+    justify-content: space-between;
+  }
+  .cart-bar.visible { transform: translateX(-50%) translateY(0); }
+  .cart-info { display: flex; align-items: center; gap: 14px; }
+  .cart-count {
+    background: var(--caramel);
+    color: #fff;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+  .cart-text { font-size: 0.9rem; font-weight: 400; }
+  .cart-total { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--latte); }
+  .checkout-btn {
+    background: var(--caramel);
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .checkout-btn:hover { background: #a5661e; }
+
+  /* ── CART MODAL ── */
+  .overlay {
+    position: fixed; inset: 0;
+    background: rgba(28,16,7,0.7);
+    z-index: 2000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--foam);
+    border-radius: 20px;
+    max-width: 460px;
+    width: 100%;
+    padding: 36px;
+    transform: translateY(20px);
+    transition: transform 0.25s;
+  }
+  .overlay.open .modal { transform: translateY(0); }
+  .modal h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--espresso);
+  }
+  .cart-items { margin-bottom: 22px; }
+  .cart-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(28,16,7,0.08);
+    font-size: 0.92rem;
+  }
+  .cart-item-name { font-weight: 500; color: var(--espresso); }
+  .cart-item-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+  .cart-item-price { font-weight: 500; color: var(--caramel); font-size: 1rem; }
+  .remove-btn { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.1rem; margin-left: 10px; }
+  .remove-btn:hover { color: #c0392b; }
+  .cart-total-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 16px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--espresso);
+    margin-bottom: 22px;
+  }
+  .modal-actions { display: flex; gap: 12px; }
+  .btn-secondary {
+    flex: 1; background: none; border: 1.5px solid var(--espresso);
+    color: var(--espresso); padding: 12px; border-radius: 24px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: var(--espresso); color: var(--cream); }
+  .btn-primary {
+    flex: 2; background: var(--caramel); border: none;
+    color: #fff; padding: 12px; border-radius: 24px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #a5661e; }
+  .empty-cart { text-align: center; color: var(--muted); font-size: 0.9rem; padding: 20px 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--espresso);
+    color: rgba(245,239,228,0.5);
+    text-align: center;
+    padding: 32px 20px;
+    font-size: 0.82rem;
+    letter-spacing: 0.5px;
+  }
+  footer strong { color: var(--latte); font-weight: 500; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .hero { padding: 60px 24px 70px; }
+    .courses { padding: 0 16px; }
+    .cart-bar { min-width: unset; width: calc(100% - 32px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">☕ Professional Barista Training</div>
+  <h1>Master the <em>Art</em><br>of Coffee</h1>
+  <p>From your first espresso to advanced latte art — we'll teach you everything that goes into a truly exceptional cup.</p>
+  <button class="hero-btn" onclick="document.querySelector('.courses').scrollIntoView({behavior:'smooth'})">Explore Courses</button>
+</section>
+
+<!-- COURSES HEADER -->
+<div class="section-label">
+  <span>What we offer</span>
+  <h2>Choose Your Journey</h2>
+</div>
+
+<!-- COURSES GRID -->
+<div class="courses">
+
+  <!-- Basic -->
+  <div class="card">
+    <div class="card-icon">☕</div>
+    <div class="card-body">
+      <div class="card-level">Level 01 — Beginner</div>
+      <div class="card-title">Basic Barista</div>
+      <button class="toggle-desc" onclick="toggleDesc('basic', this)">Read more ↓</button>
+      <div class="card-desc" id="desc-basic">
+        Perfect for those just starting out. This hands-on course covers everything you need to confidently work behind an espresso machine. You'll learn the fundamentals of coffee extraction, milk texturing, and how to deliver a consistent cup every time.
+        <ul class="includes">
+          <li>Espresso machine fundamentals</li>
+          <li>Milk steaming &amp; texturing basics</li>
+          <li>Grind settings &amp; tamping technique</li>
+          <li>Introduction to coffee origins</li>
+          <li>Full-day session (6 hours)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="price">$199 <span>/ person</span></div>
+      <button class="add-btn" id="btn-basic" onclick="addToCart('basic')">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- Advanced -->
+  <div class="card featured">
+    <div class="card-icon">🎨</div>
+    <div class="card-body">
+      <div class="card-level">Level 02 — Intermediate</div>
+      <div class="card-title">Advanced Barista</div>
+      <button class="toggle-desc" onclick="toggleDesc('advanced', this)">Read more ↓</button>
+      <div class="card-desc" id="desc-advanced">
+        Take your skills to the next level with in-depth training on espresso dialling, advanced milk techniques, and beautiful latte art. Ideal for baristas looking to sharpen their craft and wow customers with every pour.
+        <ul class="includes">
+          <li>Advanced espresso dialling &amp; ratios</li>
+          <li>Latte art fundamentals (hearts, tulips)</li>
+          <li>Brew methods: pour-over &amp; cold brew</li>
+          <li>Customer service &amp; café workflow</li>
+          <li>Two-day intensive (12 hours)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="price">$299 <span>/ person</span></div>
+      <button class="add-btn" id="btn-advanced" onclick="addToCart('advanced')">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- Premium -->
+  <div class="card">
+    <div class="card-icon">🏆</div>
+    <div class="card-body">
+      <div class="card-level">Level 03 — Expert</div>
+      <div class="card-title">Premium Barista</div>
+      <button class="toggle-desc" onclick="toggleDesc('premium', this)">Read more ↓</button>
+      <div class="card-desc" id="desc-premium">
+        The complete barista experience. Our most comprehensive course combines everything from the Basic and Advanced programs, plus roasting theory, competition preparation, and one-on-one mentoring. Designed for those who want to turn passion into profession.
+        <ul class="includes">
+          <li>Everything in Basic &amp; Advanced</li>
+          <li>Advanced latte art (rosettas, swans)</li>
+          <li>Coffee roasting theory &amp; cupping</li>
+          <li>Barista competition preparation</li>
+          <li>Certificate of completion</li>
+          <li>Three-day masterclass (20 hours)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="price">$399 <span>/ person</span></div>
+      <button class="add-btn" id="btn-premium" onclick="addToCart('premium')">Add to Cart</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- FLOATING CART BAR -->
+<div class="cart-bar" id="cartBar">
+  <div class="cart-info">
+    <div class="cart-count" id="cartCount">0</div>
+    <div class="cart-text">items in cart</div>
+  </div>
+  <div class="cart-total" id="cartTotalBar">$0</div>
+  <button class="checkout-btn" onclick="openModal()">View Cart →</button>
+</div>
+
+<!-- CART MODAL -->
+<div class="overlay" id="overlay" onclick="closeOnOverlay(event)">
+  <div class="modal">
+    <h3>Your Cart</h3>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-total-row">
+      <span>Total</span>
+      <span id="modalTotal">$0</span>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeModal()">Continue</button>
+      <button class="btn-primary" onclick="checkout()">Proceed to Payment →</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <strong>The Craft Barista Training</strong> · All courses held at our café · Enquiries welcome
+</footer>
+
+<script>
+  const courses = {
+    basic:    { name: 'Basic Barista',    sub: 'Level 01 — Full-day session',     price: 199 },
+    advanced: { name: 'Advanced Barista', sub: 'Level 02 — Two-day intensive',    price: 299 },
+    premium:  { name: 'Premium Barista',  sub: 'Level 03 — Three-day masterclass',price: 399 },
+  };
+
+  let cart = {};
+
+  function toggleDesc(id, btn) {
+    const el = document.getElementById('desc-' + id);
+    el.classList.toggle('open');
+    btn.textContent = el.classList.contains('open') ? 'Read less ↑' : 'Read more ↓';
+  }
+
+  function addToCart(id) {
+    cart[id] = courses[id];
+    const btn = document.getElementById('btn-' + id);
+    btn.textContent = '✓ Added';
+    btn.classList.add('added');
+    btn.disabled = true;
+    updateCartBar();
+  }
+
+  function removeFromCart(id) {
+    delete cart[id];
+    const btn = document.getElementById('btn-' + id);
+    if (btn) { btn.textContent = 'Add to Cart'; btn.classList.remove('added'); btn.disabled = false; }
+    updateCartBar();
+    renderModal();
+  }
+
+  function updateCartBar() {
+    const items = Object.keys(cart);
+    const total = items.reduce((s, k) => s + cart[k].price, 0);
+    document.getElementById('cartCount').textContent = items.length;
+    document.getElementById('cartTotalBar').textContent = '$' + total;
+    document.getElementById('cartBar').classList.toggle('visible', items.length > 0);
+  }
+
+  function renderModal() {
+    const items = Object.keys(cart);
+    const total = items.reduce((s, k) => s + cart[k].price, 0);
+    const el = document.getElementById('cartItems');
+    if (items.length === 0) {
+      el.innerHTML = '<div class="empty-cart">Your cart is empty.</div>';
+    } else {
+      el.innerHTML = items.map(k => `
+        <div class="cart-item">
+          <div>
+            <div class="cart-item-name">${cart[k].name}</div>
+            <div class="cart-item-sub">${cart[k].sub}</div>
+          </div>
+          <div style="display:flex;align-items:center">
+            <span class="cart-item-price">$${cart[k].price}</span>
+            <button class="remove-btn" onclick="removeFromCart('${k}')" title="Remove">✕</button>
+          </div>
+        </div>`).join('');
+    }
+    document.getElementById('modalTotal').textContent = '$' + total;
+  }
+
+  function openModal() { renderModal(); document.getElementById('overlay').classList.add('open'); }
+  function closeModal() { document.getElementById('overlay').classList.remove('open'); }
+  function closeOnOverlay(e) { if (e.target === document.getElementById('overlay')) closeModal(); }
+
+  const squareLinks = {
+    basic:    'https://square.link/u/AZiX4jYT',
+    advanced: 'https://square.link/u/AZiX4jYT',
+    premium:  'https://square.link/u/AZiX4jYT',
+  };
+
+  function checkout() {
+    const items = Object.keys(cart);
+    if (items.length === 0) return;
+
+    if (items.length === 1) {
+      window.location.href = squareLinks[items[0]];
+    } else {
+      items.forEach(id => window.open(squareLinks[id], '_blank'));
+    }
+  }
+</script>
+
+</body>
+</html>
