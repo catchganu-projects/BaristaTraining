@@ -9,10 +9,9 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --black: #0A0A08; --white: #FAFAF7; --stone: #F2F0EB;
-  --green: #1A3A2A; --green-mid: #2D6147; --green-pale: #E8F0EB;
-  --amber: #92600A; --amber-pale: #FDF3E3;
-  --accent: #C8A96E; --muted: #7A7A72; --border: rgba(10,10,8,0.1);
+  --black: #0A0A08; --white: #FAFAF7; --stone: #F0EDE6;
+  --green: #1A3A2A; --green-mid: #2D6147; --green-pale: #E4EDE7;
+  --accent: #C8A96E; --accent-light: #F5EDD8; --muted: #7A7A72; --border: rgba(10,10,8,0.1);
 }
 html { scroll-behavior: smooth; }
 body { font-family: 'Instrument Sans', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
@@ -185,6 +184,8 @@ footer p { font-size: 0.78rem; color: rgba(250,250,247,0.35); line-height: 1.6; 
         <div class="legend-item"><div class="legend-swatch legend-today"></div>Today</div>
       </div>
     </div>
+
+    <!-- ADMIN NOTE -->
   </div>
 
   <!-- SLOT PANEL -->
@@ -223,7 +224,7 @@ footer p { font-size: 0.78rem; color: rgba(250,250,247,0.35); line-height: 1.6; 
     </div>
     <div class="modal-btns">
       <button class="modal-btn-sec" onclick="closeModal()">Keep browsing</button>
-      <button class="modal-btn-pri" onclick="checkout()">Pay with Square →</button>
+      <button class="modal-btn-pri" id="modal-pay-btn" onclick="checkout()">Pay with Square →</button>
     </div>
   </div>
 </div>
@@ -325,30 +326,80 @@ footer p { font-size: 0.78rem; color: rgba(250,250,247,0.35); line-height: 1.6; 
     const cart = getCart();
     const keys = Object.keys(cart);
     const total = keys.reduce((s, k) => s + cart[k].price, 0);
+    document.getElementById('modal-pay-btn').style.display = '';
     document.getElementById('cartItems').innerHTML = keys.length === 0
       ? '<div class="empty-msg">Nothing selected yet.</div>'
-      : keys.map(k => `
-          <div class="cart-item">
+      : keys.map(k => {
+          const dateLabel = cart[k].selectedDate
+            ? new Date(cart[k].selectedDate + 'T00:00:00').toLocaleDateString('en-AU',{weekday:'short',day:'numeric',month:'short',year:'numeric'})
+            : null;
+          return `<div class="cart-item">
             <div>
               <div class="cart-item-name">${cart[k].name}</div>
-              <div class="cart-item-sub">${cart[k].duration}${cart[k].selectedDate ? ' · ' + new Date(cart[k].selectedDate + 'T00:00:00').toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'}) : ''}</div>
+              <div class="cart-item-sub">${cart[k].duration}${dateLabel ? ' · <strong style="color:var(--green)">📅 ' + dateLabel + '</strong>' : ' · <span style="color:var(--accent)">No date selected yet</span>'}</div>
             </div>
             <div class="cart-item-right">
               <span class="cart-item-price">$${cart[k].price}</span>
               <button class="remove-item" onclick="removeFromCart('${k}');renderModal();if(selectedDate)renderSlots(selectedDate);">✕</button>
             </div>
-          </div>`).join('');
+          </div>`;
+        }).join('');
     document.getElementById('modalTotal').textContent = '$' + total;
   }
 
   function openModal()  { renderModal(); document.getElementById('overlay').classList.add('open'); }
   function closeModal() { document.getElementById('overlay').classList.remove('open'); }
   function closeOnOverlay(e) { if (e.target === document.getElementById('overlay')) closeModal(); }
+  function buildSquareUrl(id) {
+    const cart = getCart();
+    const item = cart[id];
+    if (!item) return COURSES[id].squareLink;
+    const dateParam = item.selectedDate
+      ? '?ref=chattybeans&note=Preferred+training+date:+' + encodeURIComponent(
+          new Date(item.selectedDate + 'T00:00:00').toLocaleDateString('en-AU', {weekday:'long',day:'numeric',month:'long',year:'numeric'})
+        )
+      : '';
+    return COURSES[id].squareLink + dateParam;
+  }
   function checkout() {
-    const keys = Object.keys(getCart());
+    const cart = getCart();
+    const keys = Object.keys(cart);
     if (!keys.length) return;
-    if (keys.length === 1) { window.location.href = COURSES[keys[0]].squareLink; }
-    else { keys.forEach(id => window.open(COURSES[id].squareLink, '_blank')); }
+    if (keys.length === 1) {
+      window.location.href = buildSquareUrl(keys[0]);
+    } else {
+      renderMultiCheckout();
+    }
+  }
+  function renderMultiCheckout() {
+    const cart = getCart();
+    const keys = Object.keys(cart);
+    document.getElementById('cartItems').innerHTML = `
+      <div style="background:var(--accent-light);border:1px solid rgba(200,169,110,0.3);border-radius:12px;padding:14px 16px;margin-bottom:14px;font-size:0.82rem;color:#5a4010;line-height:1.5;">
+        <strong style="font-weight:600">You have ${keys.length} experiences selected.</strong><br>Use the Pay button for each one to complete your bookings via Square.
+      </div>` +
+      keys.map(k => {
+        const item = cart[k];
+        const dateLabel = item.selectedDate
+          ? new Date(item.selectedDate + 'T00:00:00').toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'})
+          : null;
+        return `<div style="padding:12px 0;border-bottom:1px solid var(--border);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <div>
+              <div style="font-size:0.9rem;font-weight:500;">${item.name}</div>
+              <div style="font-size:0.76rem;color:var(--muted);">${item.duration}${dateLabel ? ' · Preferred: ' + dateLabel : ''}</div>
+            </div>
+            <span style="font-family:Syne,sans-serif;font-size:1rem;font-weight:600;color:var(--green);">$${item.price}</span>
+          </div>
+          <a href="${buildSquareUrl(k)}" target="_blank"
+            style="display:block;text-align:center;background:var(--green);color:var(--white);padding:11px;border-radius:30px;font-size:0.83rem;font-weight:500;text-decoration:none;"
+            onmouseover="this.style.background='var(--green-mid)'" onmouseout="this.style.background='var(--green)'">
+            Pay $${item.price} for ${item.name} →
+          </a>
+        </div>`;
+      }).join('') +
+      `<div style="display:flex;justify-content:space-between;padding:14px 0 0;"><span style="font-size:0.85rem;color:var(--muted);">Total</span><span style="font-family:Syne,sans-serif;font-size:1.4rem;font-weight:700;">$${keys.reduce((s,k)=>s+cart[k].price,0)}</span></div>`;
+    document.getElementById('modal-pay-btn').style.display = 'none';
   }
 
   renderCalendar();

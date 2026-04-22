@@ -84,7 +84,7 @@ You'll finish with a ChattyBeans Completion Certificate recognising your dedicat
     price: 99,
     color: 'amber',
     squareLink: 'https://square.link/u/F2q9aoTy',
-    image: 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80',
     summary: 'A fun, safe, and specially designed barista experience for teens aged 14–17. Learn the art of coffee in a supportive environment — no experience needed.',
     includes: [
       'Introduction to espresso & coffee basics',
