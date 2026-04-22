@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course — ChattyBeans</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0A0A08; --white: #FAFAF7; --stone: #F2F0EB;
+  --green: #1A3A2A; --green-mid: #2D6147; --green-pale: #E8F0EB;
+  --amber: #92600A; --amber-pale: #FDF3E3;
+  --accent: #C8A96E; --muted: #7A7A72; --border: rgba(10,10,8,0.1);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Instrument Sans', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; background: rgba(250,250,247,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+.nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; color: var(--green); text-decoration: none; }
+.nav-logo span { color: var(--accent); }
+.nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.15s; }
+.nav-back:hover { color: var(--black); }
+.nav-cta { background: var(--green); color: var(--white); border: none; padding: 10px 22px; border-radius: 40px; font-family: 'Instrument Sans', sans-serif; font-size: 0.82rem; font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; }
+.nav-cta:hover { background: var(--green-mid); }
+
+/* HERO */
+.detail-hero { margin-top: 73px; display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; }
+.course-header { padding: 60px 56px; display: flex; flex-direction: column; justify-content: center; }
+#course-header { transition: background 0.3s; }
+.breadcrumb { font-size: 0.78rem; color: var(--muted); margin-bottom: 20px; }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--black); }
+.course-level-tag { display: inline-block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; padding: 5px 14px; border-radius: 20px; margin-bottom: 18px; }
+.course-name { font-family: 'Syne', sans-serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.0; margin-bottom: 12px; }
+.course-tagline { font-size: 1rem; font-weight: 300; line-height: 1.6; margin-bottom: 28px; }
+.course-meta-row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+.course-meta-pill { display: flex; align-items: center; gap: 7px; font-size: 0.8rem; font-weight: 400; }
+.meta-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.detail-add-btn { display: inline-block; background: var(--accent); color: var(--green); border: none; padding: 16px 36px; border-radius: 40px; font-family: 'Instrument Sans', sans-serif; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.detail-add-btn:hover { background: #d4b87a; transform: translateY(-1px); }
+.detail-add-btn.added { background: var(--green); color: var(--white); }
+.detail-add-btn:disabled { opacity: 0.7; cursor: default; transform: none; }
+
+.detail-img-wrap { overflow: hidden; }
+.detail-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* CONTENT */
+.detail-content { max-width: 1240px; margin: 0 auto; padding: 80px 48px; display: grid; grid-template-columns: 1fr 380px; gap: 64px; align-items: start; }
+.detail-main {}
+.detail-section-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.detail-section-label::before { content: ''; width: 20px; height: 1px; background: var(--accent); }
+.detail-title { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 20px; }
+.detail-text p { font-size: 0.93rem; color: var(--muted); line-height: 1.85; font-weight: 300; margin-bottom: 16px; }
+.detail-text p:last-child { margin-bottom: 0; }
+
+/* SIDEBAR */
+.detail-sidebar {}
+.sidebar-card { background: var(--stone); border-radius: 18px; padding: 28px; border: 1px solid var(--border); margin-bottom: 20px; }
+.sidebar-price-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.sidebar-price { font-family: 'Syne', sans-serif; font-size: 2.8rem; font-weight: 800; color: var(--black); letter-spacing: -1.5px; line-height: 1; margin-bottom: 4px; }
+.sidebar-price-sub { font-size: 0.8rem; color: var(--muted); font-weight: 300; margin-bottom: 24px; }
+.sidebar-add-btn { width: 100%; background: var(--green); color: var(--white); border: none; padding: 15px; border-radius: 40px; font-family: 'Instrument Sans', sans-serif; font-size: 0.92rem; font-weight: 500; cursor: pointer; transition: background 0.2s; margin-bottom: 12px; }
+.sidebar-add-btn:hover { background: var(--green-mid); }
+.sidebar-add-btn.added { background: var(--green-mid); }
+.sidebar-add-btn:disabled { opacity: 0.7; cursor: default; }
+.sidebar-cal-btn { width: 100%; background: none; border: 1.5px solid var(--border); color: var(--muted); padding: 13px; border-radius: 40px; font-family: 'Instrument Sans', sans-serif; font-size: 0.88rem; cursor: pointer; transition: all 0.2s; text-decoration: none; display: block; text-align: center; }
+.sidebar-cal-btn:hover { border-color: var(--black); color: var(--black); }
+
+.includes-card { background: var(--white); border-radius: 18px; padding: 28px; border: 1px solid var(--border); }
+.includes-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 18px; }
+.features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.features li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.83rem; color: var(--muted); line-height: 1.4; font-weight: 300; }
+.feat-dot { width: 18px; height: 18px; border-radius: 50%; background: var(--green-pale); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.feat-dot::after { content: ''; width: 6px; height: 6px; background: var(--green-mid); border-radius: 50%; }
+
+/* OTHER COURSES */
+.other-section { background: var(--stone); padding: 70px 48px; }
+.other-inner { max-width: 1240px; margin: 0 auto; }
+.other-title { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 28px; }
+.other-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.other-card { background: var(--white); border-radius: 14px; padding: 20px; border: 1px solid var(--border); text-decoration: none; color: inherit; display: block; transition: transform 0.2s, box-shadow 0.2s; }
+.other-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(10,10,8,0.08); }
+.other-card-level { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
+.other-card-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.other-card-price { font-size: 0.85rem; color: var(--muted); font-weight: 300; }
+
+/* CART BAR */
+.cart-bar { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(130px); background: var(--green); color: var(--white); border-radius: 50px; padding: 14px 14px 14px 24px; display: flex; align-items: center; gap: 20px; justify-content: space-between; box-shadow: 0 20px 60px rgba(10,10,8,0.25); transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1); z-index: 999; min-width: 360px; }
+.cart-bar.visible { transform: translateX(-50%) translateY(0); }
+.cart-info { display: flex; align-items: center; gap: 12px; }
+.cart-pill { background: var(--accent); color: var(--green); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; }
+.cart-label { font-size: 0.85rem; color: rgba(250,250,247,0.7); font-weight: 300; }
+.cart-total-display { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--accent); }
+.cart-view-btn { background: var(--accent); color: var(--green); border: none; padding: 11px 22px; border-radius: 40px; font-family: 'Instrument Sans', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+.cart-view-btn:hover { background: #d4b87a; }
+
+/* MODAL */
+.overlay { position: fixed; inset: 0; background: rgba(10,10,8,0.6); z-index: 2000; display: flex; align-items: flex-end; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(4px); }
+.overlay.open { opacity: 1; pointer-events: all; }
+.modal { background: var(--white); border-radius: 24px 24px 0 0; width: 100%; max-width: 560px; padding: 32px 36px 48px; transform: translateY(40px); transition: transform 0.35s cubic-bezier(0.34,1.3,0.64,1); }
+.overlay.open .modal { transform: translateY(0); }
+.modal-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 24px; }
+.modal-title { font-family: 'Syne', sans-serif; font-size: 1.35rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 20px; }
+.cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.cart-item-name { font-size: 0.9rem; font-weight: 500; margin-bottom: 2px; }
+.cart-item-sub { font-size: 0.76rem; color: var(--muted); font-weight: 300; }
+.cart-item-right { display: flex; align-items: center; gap: 10px; }
+.cart-item-price { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600; color: var(--green); }
+.remove-item { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1rem; padding: 4px; border-radius: 50%; transition: background 0.15s; }
+.remove-item:hover { background: #fee; color: #c00; }
+.cart-total-row { display: flex; justify-content: space-between; padding: 16px 0 22px; }
+.cart-total-label { font-size: 0.85rem; color: var(--muted); }
+.cart-total-amount { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
+.modal-btns { display: flex; gap: 12px; }
+.modal-btn-sec { flex: 1; background: none; border: 1.5px solid var(--border); color: var(--muted); padding: 13px; border-radius: 40px; font-family: 'Instrument Sans', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+.modal-btn-sec:hover { border-color: var(--black); color: var(--black); }
+.modal-btn-pri { flex: 2; background: var(--green); border: none; color: var(--white); padding: 13px; border-radius: 40px; font-family: 'Instrument Sans', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+.modal-btn-pri:hover { background: var(--green-mid); }
+.empty-msg { text-align: center; color: var(--muted); font-size: 0.88rem; padding: 24px 0; }
+
+/* FOOTER */
+footer { background: var(--black); padding: 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+.footer-logo { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--white); }
+.footer-logo span { color: var(--accent); }
+footer p { font-size: 0.78rem; color: rgba(250,250,247,0.35); line-height: 1.6; }
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  nav { padding: 16px 24px; }
+  .detail-hero { grid-template-columns: 1fr; }
+  .detail-img-wrap { height: 300px; }
+  .course-header { padding: 48px 28px; }
+  .detail-content { grid-template-columns: 1fr; padding: 48px 24px; gap: 40px; }
+  .other-grid { grid-template-columns: 1fr 1fr; }
+  .other-section { padding: 50px 24px; }
+  .cart-bar { min-width: unset; width: calc(100% - 32px); }
+  footer { padding: 36px 24px; flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Chatty<span>Beans</span></a>
+  <a class="nav-back" href="index.html">← All Experiences</a>
+  <a class="nav-cta" href="calendar.html">Book a Date</a>
+</nav>
+
+<!-- DETAIL HERO -->
+<div class="detail-hero">
+  <div id="course-header" class="course-header">
+    <div class="breadcrumb"><a href="index.html">Home</a> / <a href="index.html#experiences">Experiences</a> / <span id="course-name-breadcrumb"></span></div>
+    <span class="course-level-tag" id="course-level-tag"></span>
+    <div class="course-name" id="course-name"></div>
+    <div class="course-tagline" id="course-tagline"></div>
+    <div class="course-meta-row">
+      <span class="course-meta-pill"><span class="meta-dot"></span><span id="course-duration-tag"></span></span>
+      <span class="course-meta-pill"><span class="meta-dot"></span>Kangaroo Point, Brisbane</span>
+      <span class="course-meta-pill"><span class="meta-dot"></span>All materials included</span>
+    </div>
+    <button class="detail-add-btn" id="detail-cart-btn">Add to cart</button>
+  </div>
+  <div class="detail-img-wrap">
+    <img class="detail-img" id="course-hero-img" src="" alt="">
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="detail-content">
+  <div class="detail-main">
+    <div class="detail-section-label">About this experience</div>
+    <div class="detail-title" id="course-name-h2"></div>
+    <div class="detail-text" id="course-details-text"></div>
+  </div>
+
+  <div class="detail-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-price-label">Investment</div>
+      <div class="sidebar-price" id="course-price"></div>
+      <div class="sidebar-price-sub">per person · all materials included</div>
+      <button class="sidebar-add-btn" id="detail-cart-btn-2">Add to cart</button>
+      <a class="sidebar-cal-btn" href="calendar.html">View Available Dates →</a>
+    </div>
+    <div class="includes-card">
+      <div class="includes-title">What's included</div>
+      <ul class="features" id="course-includes"></ul>
+    </div>
+    <div style="background:var(--amber-pale);border:1px solid rgba(146,96,10,0.15);border-radius:14px;padding:18px 20px;margin-top:16px;">
+      <p style="font-size:0.78rem;color:var(--amber);line-height:1.55;font-weight:400;"><strong style="font-weight:500">Barista Experience — not a certification.</strong> Our programmes are hands-on immersive sessions. No formal qualifications or accreditation are issued.</p>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT'S INCLUDED summary (mobile only, shown above sidebar) -->
+<div id="course-summary-bar" style="background:var(--stone);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 48px;display:none;">
+  <p id="course-summary" style="font-size:0.88rem;color:var(--muted);line-height:1.7;font-weight:300;max-width:700px;"></p>
+</div>
+
+<!-- OTHER COURSES -->
+<div class="other-section">
+  <div class="other-inner">
+    <div class="other-title">Explore other experiences</div>
+    <div class="other-grid" id="other-courses-grid"></div>
+  </div>
+</div>
+
+<!-- CART BAR -->
+<div class="cart-bar" id="cartBar">
+  <div class="cart-info">
+    <div class="cart-pill" id="cartCount">0</div>
+    <span class="cart-label">experience(s) selected</span>
+  </div>
+  <div class="cart-total-display" id="cartTotalBar">$0</div>
+  <button class="cart-view-btn" onclick="openModal()">Review &amp; Pay →</button>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeOnOverlay(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Your Selection</div>
+    <div id="cartItems"></div>
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total due</span>
+      <span class="cart-total-amount" id="modalTotal">$0</span>
+    </div>
+    <div class="modal-btns">
+      <button class="modal-btn-sec" onclick="closeModal()">Keep browsing</button>
+      <button class="modal-btn-pri" onclick="checkout()">Pay with Square →</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div><div class="footer-logo">Chatty<span>Beans</span></div><p style="margin-top:6px">Kangaroo Point, Brisbane QLD</p></div>
+  <p>Barista Experience — not a certified course<br>All sessions at ChattyBeans, Kangaroo Point</p>
+</footer>
+
+<script src="shared.js"></script>
+<script src="detail-shared.js"></script>
+<script>
+  // Get course ID from this page's filename
+  const pageId = 'basic';
+  renderDetailPage(pageId);
+  document.getElementById('course-name-breadcrumb').textContent = COURSES[pageId]?.name || '';
+  document.getElementById('course-name-h2').textContent = COURSES[pageId]?.name || '';
+
+  // Sync sidebar button
+  const btn2 = document.getElementById('detail-cart-btn-2');
+  btn2.textContent = getCart()[pageId] ? '✓ Added to cart' : 'Add to cart — $' + (COURSES[pageId]?.price || '');
+  btn2.classList.toggle('added', !!getCart()[pageId]);
+  btn2.disabled = !!getCart()[pageId];
+  btn2.onclick = () => {
+    addToCart(pageId);
+    btn2.textContent = '✓ Added to cart';
+    btn2.classList.add('added');
+    btn2.disabled = true;
+    document.getElementById('detail-cart-btn').textContent = '✓ Added to cart';
+    document.getElementById('detail-cart-btn').classList.add('added');
+    document.getElementById('detail-cart-btn').disabled = true;
+  };
+
+  // Other courses grid
+  const grid = document.getElementById('other-courses-grid');
+  grid.innerHTML = Object.values(COURSES).filter(c => c.id !== pageId).map(c => `
+    <a class="other-card" href="course-${c.id}.html">
+      <div class="other-card-level">${c.level}</div>
+      <div class="other-card-name">${c.name}</div>
+      <div class="other-card-price">$${c.price} · ${c.duration}</div>
+    </a>`).join('');
+</script>
+</body>
+</html>
