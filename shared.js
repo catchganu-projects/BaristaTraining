@@ -153,17 +153,19 @@ function updateCartUI() {
 // Available slots — edit these dates to manage your calendar
 // Format: 'YYYY-MM-DD': ['courseid', 'courseid', ...]
 const AVAILABLE_SLOTS = {
-  // May 2025
-  '2025-05-03': ['basic', 'teens'],
-  '2025-05-10': ['advanced'],
-  '2025-05-17': ['basic', 'teens'],
-  '2025-05-24': ['premium'],
-  '2025-05-31': ['basic', 'advanced'],
-  // June 2025
-  '2025-06-07': ['basic', 'teens'],
-  '2025-06-14': ['advanced', 'premium'],
-  '2025-06-21': ['basic', 'teens'],
-  '2025-06-28': ['basic', 'advanced'],
+  // Apr 2026
+  '2026-04-27': ['basic','premium', 'advanced'],
+  '2026-04-25': ['teens'],
+  // May 2026
+  '2026-05-02': ['teens'],
+  '2026-05-09': ['teens'],
+  '2026-05-16': ['teens'],
+  '2026-05-23': ['teens'],
+  '2026-05-30': ['teens'],
+  '2026-05-04': ['basic','premium', 'advanced'],
+  '2026-05-11': ['basic','premium', 'advanced'],
+  '2026-05-18': ['basic','premium', 'advanced'],
+  '2026-05-25': ['basic','premium', 'advanced'],
   // July 2025
   '2025-07-05': ['teens', 'basic'],
   '2025-07-12': ['premium'],
