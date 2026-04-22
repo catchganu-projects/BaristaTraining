@@ -33,7 +33,7 @@ This isn't a lecture — it's hands-on from the first minute. Everything takes p
     duration: 'Two-day intensive — 12 hours',
     price: 299,
     color: 'green',
-    squareLink: 'https://square.link/u/AZiX4jYT',
+    squareLink: 'https://square.link/u/33qombYz',
     image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&q=80',
     summary: 'Take your skills to the next level with advanced espresso techniques, latte art, and multiple brew methods. Ideal for those ready to go from good to exceptional.',
     includes: [
@@ -58,7 +58,7 @@ This experience is ideal for home enthusiasts who want to level up, hospitality 
     duration: 'Three-day masterclass — 20 hours',
     price: 399,
     color: 'black',
-    squareLink: 'https://square.link/u/AZiX4jYT',
+    squareLink: 'https://square.link/u/sBtHpleS',
     image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80',
     summary: 'Our flagship three-day experience covering everything from foundational skills to advanced latte art, roasting theory, and one-on-one mentoring.',
     includes: [
@@ -83,7 +83,7 @@ You'll finish with a ChattyBeans Completion Certificate recognising your dedicat
     duration: 'Half-day — 3 hours',
     price: 99,
     color: 'amber',
-    squareLink: 'https://square.link/u/AZiX4jYT',
+    squareLink: 'https://square.link/u/F2q9aoTy',
     image: 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&q=80',
     summary: 'A fun, safe, and specially designed barista experience for teens aged 14–17. Learn the art of coffee in a supportive environment — no experience needed.',
     includes: [
