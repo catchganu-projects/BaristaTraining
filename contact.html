@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — ChattyBeans</title>
+<meta name="description" content="Get in touch with ChattyBeans Barista Experience, Kangaroo Point Brisbane. We'd love to hear from you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0A0A08; --white: #FAFAF7; --stone: #F0EDE6;
+  --green: #1A3A2A; --green-mid: #2D6147; --green-pale: #E4EDE7;
+  --accent: #C8A96E; --accent-light: #F5EDD8; --muted: #7A7A72; --border: rgba(10,10,8,0.1);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Instrument Sans', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; background: rgba(250,250,247,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+.nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; color: var(--green); text-decoration: none; }
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { font-size: 0.85rem; color: var(--muted); text-decoration: none; font-weight: 400; transition: color 0.15s; }
+.nav-links a:hover, .nav-links a.active { color: var(--black); font-weight: 500; }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-location { font-size: 0.75rem; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
+.nav-cta { background: var(--green); color: var(--white); border: none; padding: 10px 22px; border-radius: 40px; font-family: 'Instrument Sans', sans-serif; font-size: 0.82rem; font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; }
+.nav-cta:hover { background: var(--green-mid); }
+
+.page-header { margin-top: 73px; background: var(--green); display: grid; grid-template-columns: 55% 45%; min-height: 320px; }
+.page-header-left { padding: 64px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+.page-header-left::after { content: ''; position: absolute; bottom: -60px; right: -60px; width: 240px; height: 240px; border-radius: 50%; background: rgba(200,169,110,0.08); pointer-events: none; }
+.eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.eyebrow-line { width: 28px; height: 1px; background: var(--accent); }
+.eyebrow span { font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.page-title { font-family: 'Syne', sans-serif; font-size: clamp(2.2rem, 4vw, 3.8rem); font-weight: 800; color: var(--white); letter-spacing: -2px; line-height: 1.0; margin-bottom: 16px; }
+.page-title em { font-style: italic; font-family: 'Instrument Sans', sans-serif; font-weight: 300; color: var(--accent); }
+.page-sub { font-size: 0.95rem; color: rgba(250,250,247,0.6); font-weight: 300; line-height: 1.7; max-width: 380px; }
+.page-header-right { background: var(--stone); display: flex; flex-direction: column; justify-content: center; padding: 48px 56px; gap: 26px; }
+.info-item { display: flex; align-items: flex-start; gap: 14px; }
+.info-icon { width: 40px; height: 40px; background: var(--white); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; border: 1px solid var(--border); }
+.info-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 3px; }
+.info-value { font-size: 0.88rem; color: var(--black); font-weight: 400; line-height: 1.55; }
+.info-value a { color: var(--green-mid); text-decoration: none; }
+.info-value a:hover { text-decoration: underline; }
+
+.contact-layout { max-width: 1200px; margin: 0 auto; padding: 72px 48px 96px; display: grid; grid-template-columns: 1fr 360px; gap: 56px; align-items: start; }
+
+.form-card { background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 40px; }
+.form-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+.form-subtitle { font-size: 0.88rem; color: var(--muted); font-weight: 300; margin-bottom: 32px; line-height: 1.6; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 0; }
+.form-group { margin-bottom: 16px; display: flex; flex-direction: column; }
+.form-label { font-size: 0.78rem; font-weight: 500; color: var(--black); letter-spacing: 0.3px; margin-bottom: 7px; }
+.form-label .req { color: var(--accent); margin-left: 2px; }
+.form-input, .form-select, .form-textarea { font-family: 'Instrument Sans', sans-serif; font-size: 0.9rem; font-weight: 300; color: var(--black); background: var(--stone); border: 1.5px solid transparent; border-radius: 10px; padding: 13px 16px; width: 100%; transition: border-color 0.15s, background 0.15s; outline: none; -webkit-appearance: none; }
+.form-input:focus, .form-select:focus, .form-textarea:focus { background: var(--white); border-color: var(--green); }
+.form-input::placeholder, .form-textarea::placeholder { color: var(--muted); }
+.form-input.error, .form-textarea.error, .form-select.error { border-color: #c0392b; background: #fff8f8; }
+.form-select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A7A72' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-color: var(--stone); padding-right: 36px; }
+.form-select:focus { background-color: var(--white); }
+.form-textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
+.char-count { font-size: 0.72rem; color: var(--muted); text-align: right; margin-top: 4px; }
+.form-submit { width: 100%; background: var(--green); color: var(--white); border: none; padding: 16px 32px; border-radius: 40px; font-family: 'Instrument Sans', sans-serif; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.form-submit:hover { background: var(--green-mid); transform: translateY(-1px); }
+.form-submit:disabled { opacity: 0.6; cursor: default; transform: none; }
+.submit-spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; flex-shrink: 0; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.form-error-msg { background: #fff2f2; border: 1px solid rgba(192,57,43,0.2); border-radius: 10px; padding: 12px 16px; font-size: 0.83rem; color: #c0392b; margin-top: 12px; display: none; line-height: 1.5; }
+
+.form-success { display: none; text-align: center; padding: 48px 24px; }
+.success-icon { width: 64px; height: 64px; background: var(--green-pale); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 20px; }
+.success-title { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 10px; color: var(--green); }
+.success-msg { font-size: 0.9rem; color: var(--muted); line-height: 1.7; font-weight: 300; margin-bottom: 28px; }
+.success-back { display: inline-block; background: var(--green); color: var(--white); padding: 13px 28px; border-radius: 40px; font-family: 'Instrument Sans', sans-serif; font-size: 0.88rem; font-weight: 500; text-decoration: none; transition: background 0.2s; }
+.success-back:hover { background: var(--green-mid); }
+
+.sidebar { display: flex; flex-direction: column; gap: 16px; }
+.sidebar-card { background: var(--stone); border-radius: 16px; padding: 24px; border: 1px solid var(--border); }
+.sidebar-card-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 14px; color: var(--black); }
+.faq-item { padding: 11px 0; border-bottom: 1px solid var(--border); }
+.faq-item:last-child { border-bottom: none; padding-bottom: 0; }
+.faq-q { font-size: 0.82rem; font-weight: 500; color: var(--black); cursor: pointer; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; line-height: 1.4; }
+.faq-q:hover { color: var(--green-mid); }
+.faq-arrow { font-size: 0.65rem; color: var(--muted); flex-shrink: 0; transition: transform 0.2s; margin-top: 3px; }
+.faq-q.open .faq-arrow { transform: rotate(180deg); }
+.faq-a { font-size: 0.8rem; color: var(--muted); line-height: 1.65; font-weight: 300; display: none; margin-top: 7px; }
+.faq-a.open { display: block; }
+
+.response-card { background: var(--green); border-radius: 16px; padding: 24px; }
+.response-card-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+.response-card-text { font-size: 0.82rem; color: rgba(250,250,247,0.65); line-height: 1.6; font-weight: 300; }
+.response-time { display: flex; align-items: center; gap: 8px; margin-top: 16px; }
+.response-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.response-time-text { font-size: 0.8rem; color: var(--accent); font-weight: 500; }
+
+.sidebar-experiences { background: var(--white); border-radius: 16px; padding: 20px; border: 1px solid var(--border); }
+.sidebar-exp-title { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 12px; }
+.sidebar-exp-link { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); text-decoration: none; transition: all 0.15s; }
+.sidebar-exp-link:last-child { border-bottom: none; }
+.sidebar-exp-link:hover .sidebar-exp-name { color: var(--green-mid); }
+.sidebar-exp-name { font-size: 0.83rem; color: var(--black); font-weight: 400; }
+.sidebar-exp-price { font-size: 0.83rem; color: var(--accent); font-weight: 500; }
+
+footer { background: var(--black); padding: 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+.footer-logo { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--white); }
+.footer-logo span { color: var(--accent); }
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-links a { font-size: 0.8rem; color: rgba(250,250,247,0.4); text-decoration: none; transition: color 0.15s; }
+.footer-links a:hover { color: rgba(250,250,247,0.8); }
+footer p { font-size: 0.78rem; color: rgba(250,250,247,0.35); line-height: 1.6; }
+
+@media (max-width: 960px) {
+  nav { padding: 16px 24px; }
+  .nav-links, .nav-location { display: none; }
+  .page-header { grid-template-columns: 1fr; }
+  .page-header-left { padding: 48px 28px; }
+  .page-header-right { padding: 32px 28px; gap: 20px; }
+  .contact-layout { grid-template-columns: 1fr; padding: 40px 24px 64px; gap: 32px; }
+  .form-card { padding: 24px 20px; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { padding: 36px 24px; flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Chatty<span>Beans</span></a>
+  <div class="nav-links">
+    <a href="index.html#experiences">Experiences</a>
+    <a href="calendar.html">Dates &amp; Booking</a>
+    <a href="index.html#why">About</a>
+    <a href="contact.html" class="active">Contact</a>
+  </div>
+  <div class="nav-right">
+    <span class="nav-location">Kangaroo Point, BNE</span>
+    <a class="nav-cta" href="calendar.html">Book a Date</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-left">
+    <div class="eyebrow"><div class="eyebrow-line"></div><span>Get in touch</span></div>
+    <h1 class="page-title">We'd love<br>to <em>hear</em><br>from you.</h1>
+    <p class="page-sub">Questions about our experiences, group bookings, or anything else — drop us a message and we'll get back to you promptly.</p>
+  </div>
+  <div class="page-header-right">
+    <div class="info-item">
+      <div class="info-icon">📍</div>
+      <div>
+        <div class="info-label">Location</div>
+        <div class="info-value">Kangaroo Point, Brisbane QLD<br>(exact address on booking confirmation)</div>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">✉️</div>
+      <div>
+        <div class="info-label">Email</div>
+        <div class="info-value"><a href="mailto:hello@baristacoursesbrisbane.com.au">hello@baristacoursesbrisbane.com.au</a></div>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">🕐</div>
+      <div>
+        <div class="info-label">Response time</div>
+        <div class="info-value">We typically reply within 24 hours on business days</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="contact-layout">
+
+  <!-- FORM -->
+  <div class="form-card">
+    <div id="formWrap">
+      <div class="form-title">Send us a message</div>
+      <p class="form-subtitle">Fill in your details below and we'll get back to you as soon as we can. Fields marked <span style="color:var(--accent)">*</span> are required.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="inp-name">Full name <span class="req">*</span></label>
+          <input class="form-input" type="text" id="inp-name" placeholder="Jane Smith" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="inp-email">Email address <span class="req">*</span></label>
+          <input class="form-input" type="email" id="inp-email" placeholder="jane@email.com" autocomplete="email">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="inp-phone">Phone number</label>
+          <input class="form-input" type="tel" id="inp-phone" placeholder="04xx xxx xxx" autocomplete="tel">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="inp-subject">Subject <span class="req">*</span></label>
+          <select class="form-select" id="inp-subject">
+            <option value="" disabled selected>Select a topic</option>
+            <option value="General enquiry">General enquiry</option>
+            <option value="Basic Experience enquiry">Basic Experience ($199)</option>
+            <option value="Advanced Experience enquiry">Advanced Experience ($299)</option>
+            <option value="Premium Experience enquiry">Premium Experience ($399)</option>
+            <option value="Teens Experience enquiry">Teens Experience ($99)</option>
+            <option value="Group booking">Group booking</option>
+            <option value="Corporate / team booking">Corporate / team booking</option>
+            <option value="Gift voucher">Gift voucher</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="inp-message">Message <span class="req">*</span></label>
+        <textarea class="form-textarea" id="inp-message" placeholder="Tell us what you'd like to know…" maxlength="1000" oninput="updateCharCount()"></textarea>
+        <div class="char-count"><span id="charCount">0</span> / 1000</div>
+      </div>
+
+      <button class="form-submit" id="submitBtn" onclick="submitForm()">
+        <span id="submitLabel">Send Message</span>
+        <span class="submit-spinner" id="spinner"></span>
+        <span id="submitArrow">→</span>
+      </button>
+      <div class="form-error-msg" id="errorMsg"></div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="form-success" id="successWrap">
+      <div class="success-icon">✅</div>
+      <div class="success-title">Message sent!</div>
+      <p class="success-msg">Thanks for reaching out. We've received your message and will get back to you within 24 hours on business days.</p>
+      <a class="success-back" href="index.html">Back to home</a>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <div class="response-card">
+      <div class="response-card-title">When will we reply?</div>
+      <div class="response-card-text">We read every message personally. For booking enquiries we try to respond the same day — especially if you have a preferred date in mind.</div>
+      <div class="response-time">
+        <div class="response-dot"></div>
+        <span class="response-time-text">Usually within 24 hours</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Common questions</div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Do I need any experience to join? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Not at all. Our Basic and Teens experiences are designed for complete beginners — no experience needed whatsoever.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Can I book for a group? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Yes! We love group bookings for team events, hens parties, birthdays and more. Get in touch and we'll arrange something special.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Are gift vouchers available? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Absolutely. A ChattyBeans experience makes a fantastic gift. Contact us and we'll organise a voucher for any experience.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What's included in the price? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Everything — all coffee, milk, equipment and materials are included. Just bring yourself and a willingness to learn!</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Can parents attend the Teens session? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Yes — parents and guardians are warmly welcome to sit in and watch, or even have a go themselves.</div>
+      </div>
+    </div>
+
+    <div class="sidebar-experiences">
+      <div class="sidebar-exp-title">Our experiences</div>
+      <a class="sidebar-exp-link" href="course-teens.html"><span class="sidebar-exp-name">Teens Experience</span><span class="sidebar-exp-price">$99</span></a>
+      <a class="sidebar-exp-link" href="course-basic.html"><span class="sidebar-exp-name">Basic Experience</span><span class="sidebar-exp-price">$199</span></a>
+      <a class="sidebar-exp-link" href="course-advanced.html"><span class="sidebar-exp-name">Advanced Experience</span><span class="sidebar-exp-price">$299</span></a>
+      <a class="sidebar-exp-link" href="course-premium.html"><span class="sidebar-exp-name">Premium Experience</span><span class="sidebar-exp-price">$399</span></a>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Chatty<span>Beans</span></div>
+    <p style="margin-top:6px">Kangaroo Point, Brisbane QLD</p>
+  </div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="calendar.html">Booking Calendar</a>
+    <a href="course-basic.html">Basic</a>
+    <a href="course-advanced.html">Advanced</a>
+    <a href="course-premium.html">Premium</a>
+    <a href="course-teens.html">Teens</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <p>Barista Experience — not a certified course<br>All sessions at ChattyBeans, Kangaroo Point</p>
+</footer>
+
+<script>
+  const WORKER_URL = 'https://baristacoursecontact.catchganu.workers.dev';
+
+  function updateCharCount() {
+    document.getElementById('charCount').textContent = document.getElementById('inp-message').value.length;
+  }
+
+  function toggleFaq(el) {
+    const answer = el.nextElementSibling;
+    const isOpen = answer.classList.toggle('open');
+    el.classList.toggle('open', isOpen);
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('errorMsg');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  function clearError() {
+    document.getElementById('errorMsg').style.display = 'none';
+    ['inp-name','inp-email','inp-subject','inp-message'].forEach(id => {
+      document.getElementById(id).classList.remove('error');
+    });
+  }
+
+  function setLoading(on) {
+    document.getElementById('submitBtn').disabled = on;
+    document.getElementById('submitLabel').textContent = on ? 'Sending…' : 'Send Message';
+    document.getElementById('spinner').style.display = on ? 'block' : 'none';
+    document.getElementById('submitArrow').style.display = on ? 'none' : 'inline';
+  }
+
+  async function submitForm() {
+    clearError();
+
+    const name    = document.getElementById('inp-name').value.trim();
+    const email   = document.getElementById('inp-email').value.trim();
+    const phone   = document.getElementById('inp-phone').value.trim();
+    const subject = document.getElementById('inp-subject').value;
+    const message = document.getElementById('inp-message').value.trim();
+
+    let hasError = false;
+    if (!name)    { document.getElementById('inp-name').classList.add('error'); hasError = true; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { document.getElementById('inp-email').classList.add('error'); hasError = true; }
+    if (!subject) { document.getElementById('inp-subject').classList.add('error'); hasError = true; }
+    if (!message) { document.getElementById('inp-message').classList.add('error'); hasError = true; }
+
+    if (hasError) { showError('Please fill in all required fields correctly.'); return; }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, subject, message }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        document.getElementById('formWrap').style.display = 'none';
+        document.getElementById('successWrap').style.display = 'block';
+      } else {
+        showError(data.error || 'Something went wrong. Please try again or email us directly.');
+        setLoading(false);
+      }
+    } catch (err) {
+      showError('Unable to send right now. Please email us directly at hello@baristacoursesbrisbane.com.au');
+      setLoading(false);
+    }
+  }
+</script>
+
+</body>
+</html>
